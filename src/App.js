@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
-
+import {BrowserRouter as Router } from 'react-router-dom';
+import Home from './pages/Home'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import "./App.css";
+import Main from './components/Main';
+import { AuthProvider } from './utils/contextAuth';
+import AuthRoute from './utils/AuthRoute';
+import { Route } from 'react-router-dom';
+import SinglePost from './pages/SinglePost'
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+    <div>
+    <Router>
+      <Main>
+      <Route exact path='/post/:postId' component={SinglePost}/>
+      <Route exact path='/' component={Home}/>
+      <AuthRoute exact path='/login' component={Login}/>
+      <AuthRoute exact path='/register' component={Register}/>
+      </Main>
+    </Router>
+ 
+  </div>
+  </AuthProvider>
   );
 }
 
